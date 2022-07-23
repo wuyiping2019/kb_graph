@@ -1,4 +1,4 @@
-package com.hk.kb_graph;
+package com.hk.kb_graph.service;
 
 import com.hk.kb_graph.domain.KBNode;
 import com.hk.kb_graph.mapper.KBNodeMapper;
@@ -12,7 +12,7 @@ public class KBNodeService {
     @Autowired
     private KBNodeMapper kbNodeMapper;
 
-    List<KBNode> getNodeByName(String name){
+    public List<KBNode> getNodeByName(String name){
         return kbNodeMapper.getNodeByName(name);
     }
 }

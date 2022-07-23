@@ -1,1 +1,55 @@
 
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 800
+    min-spare-threads: 30
+    connection-timeout: 50000ms
+
+
+# 日志
+logging:
+  level:
+    com.hk: debug
+    org.springframework: debug
+
+# es连接
+es:
+  host: 10.2.13.150
+  port: 9200
+  repository:
+    index: kb_graph
+
+spring:
+  neo4j:
+    authentication:
+      username: stage
+      password: User123$
+    uri: bolt://10.2.13.150:7687
+
+  data:
+    neo4j:
+      database = insurance_kb
+  profiles:
+    active: dev
+
+# MyBatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.hk.**.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # 加载全局的配置文件
+  configLocation: classpath:mybatis/mybatis-config.xml
+
+# PageHelper分页插件
+pagehelper:
+  # 没有设置 helperDialect属性, 会自动获取数据库类型
+  #  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  autoRuntimeDialect: true

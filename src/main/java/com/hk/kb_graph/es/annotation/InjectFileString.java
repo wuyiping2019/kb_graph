@@ -1,10 +1,14 @@
 package com.hk.kb_graph.es.annotation;
 
+import org.springframework.stereotype.Component;
+
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 @Documented
+@Component
+@Inherited
 public @interface InjectFileString {
     /**
      * 自定义注解用于在对象中自动注入json字符串

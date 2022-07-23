@@ -1,4 +1,4 @@
-package com.hk.kb_graph.service;
+package com.hk.kb_graph.neo4j.service;
 
 import com.hk.kb_graph.neo4j.node.InsuranceProductNode;
 import com.hk.kb_graph.neo4j.repository.InsuranceProductRepository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class Neo4jSearchService {
+public class InsuranceProductService {
     @Autowired
     private InsuranceProductRepository insuranceProductRepository;
 
@@ -18,7 +18,7 @@ public class Neo4jSearchService {
      * @param productName
      * @return 保险产品列表
      */
-    public List<InsuranceProductNode> getInsuranceProduct(String productName) {
-        return insuranceProductRepository.getInsuranceProductNodeByName(productName);
+    public List<InsuranceProductRepository.RelationshipProjection> getInsuranceProduct(String productName) {
+        return insuranceProductRepository.findByName(productName);
     }
 }

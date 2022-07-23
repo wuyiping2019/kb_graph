@@ -1,4 +1,4 @@
-package com.hk.kb_graph.es.service.impl;
+package com.hk.kb_graph.es.service;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.hk.kb_graph.es.annotation.InjectFileString;
@@ -34,7 +34,7 @@ public class QAPairService {
      * 使用同步方法 只允许一个线程访问maxId属性,每次访问maxId都会+1并返回这个maxId,用于存储文档
      */
     public synchronized Long getMaxId() throws IOException {
-        System.out.println(this.maxIdRequestBody);
+        System.out.println("maxIdRequestBody:"+this.maxIdRequestBody);
         //当前存储的最大id
         Long id = this.maxId;
         //判断当前ID是否为空 如果为空 则需要查询es最大的id
