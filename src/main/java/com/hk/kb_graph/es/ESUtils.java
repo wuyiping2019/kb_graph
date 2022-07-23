@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -30,7 +31,7 @@ public class ESUtils {
      * 添加document
      * */
     public boolean addDocument(QAPair qaPair, String index, String type) throws IOException {
-        Long id = qaPair.getId();
+        BigDecimal id = qaPair.getId();
         String json = JSONObject.toJSONString(qaPair);
         Request request = new Request("PUT", "/" + index + "/"+type + "/" + id);
         request.setJsonEntity(json);

@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 
 @SpringBootTest
 public class ESTest {
@@ -20,13 +21,13 @@ public class ESTest {
 
     @Test
     public void testQAPair() throws IOException {
-        ESDocumentRespEntity qaPairById = qaPairService.getQAPairById(1l);
+        ESDocumentRespEntity qaPairById = qaPairService.getQAPairById(new BigDecimal(1));
         System.out.println(qaPairById);
     }
 
     @Test
-    public void testGetMaxId() throws IOException, IllegalAccessException {
-        Long maxId = qaPairService.getMaxId();
+    public void testGetMaxId() throws IOException {
+        BigDecimal maxId = qaPairService.getMaxId();
         System.out.println("maxId:"+maxId);
     }
 }
