@@ -1,0 +1,10 @@
+{
+  "aggs" : {
+    "max_id" : {
+      "max" : {
+        "field" : "id"
+      }
+    }
+  },
+  "size":0
+}
