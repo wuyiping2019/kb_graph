@@ -1,4 +1,4 @@
-package com.hk.kb_graph.mapper;
+package com.hk.kb_graph.rds.mapper;
 
 import com.hk.kb_graph.domain.KBNode;
 import org.apache.ibatis.annotations.Mapper;

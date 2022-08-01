@@ -10,11 +10,13 @@ server:
     connection-timeout: 50000ms
 
 
+
 # 日志
 logging:
   level:
-    com.hk: debug
-    org.springframework: debug
+    root: info
+#    com.hk: debug
+#    org.springframework: debug
 
 # es连接
 es:
@@ -24,15 +26,22 @@ es:
     index: kb_graph
 
 spring:
+  #neo4j
   neo4j:
     authentication:
       username: stage
       password: User123$
     uri: bolt://10.2.13.150:7687
-
   data:
     neo4j:
-      database = insurance_kb
+      database = insurance_k
+  #spring.security
+  security:
+    login:
+      username.parameter: username
+      password.parameter: password
+      validation.parameter: kaptcha
+
   profiles:
     active: dev
 

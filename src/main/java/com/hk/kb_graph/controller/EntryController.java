@@ -1,7 +1,6 @@
 package com.hk.kb_graph.controller;
 
 
-import com.alibaba.fastjson2.JSONObject;
 import com.hk.kb_graph.domain.KBNode;
 import com.hk.kb_graph.domain.RespDo;
 import com.hk.kb_graph.neo4j.node.GraphLink;
@@ -11,10 +10,8 @@ import com.hk.kb_graph.neo4j.node.NodeEntity;
 import com.hk.kb_graph.neo4j.service.InsuranceCompanyService;
 import com.hk.kb_graph.neo4j.service.InsuranceProductService;
 import com.hk.kb_graph.neo4j.service.NodeEntityService;
-import com.hk.kb_graph.service.KBNodeService;
+import com.hk.kb_graph.rds.service.KBNodeService;
 import org.neo4j.driver.Driver;
-import org.neo4j.driver.Record;
-import org.neo4j.driver.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller

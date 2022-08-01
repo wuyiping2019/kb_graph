@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hk.kb_graph.mapper.KBNodeMapper">
+<mapper namespace="com.hk.kb_graph.rds.mapper.KBNodeMapper">
     <select id="getNodeByName" parameterType="string" resultType="kBNode">
         select name,type from kb_node a where a.name like '%${name}%' limit 1
     </select>

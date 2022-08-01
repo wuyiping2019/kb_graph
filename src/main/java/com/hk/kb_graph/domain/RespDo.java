@@ -8,13 +8,13 @@ import java.util.List;
 public class RespDo {
     private String code;
     private String msg;
-    private List<Object> data;
+    private Object data;
 
     public static RespDo newInstance(){
         return  new RespDo();
     }
 
-    public  RespDo success(String code, String msg, List<Object> data) {
+    public  RespDo success(String code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;

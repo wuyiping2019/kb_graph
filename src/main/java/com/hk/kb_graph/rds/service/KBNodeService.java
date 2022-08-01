@@ -1,7 +1,7 @@
-package com.hk.kb_graph.service;
+package com.hk.kb_graph.rds.service;
 
 import com.hk.kb_graph.domain.KBNode;
-import com.hk.kb_graph.mapper.KBNodeMapper;
+import com.hk.kb_graph.rds.mapper.KBNodeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

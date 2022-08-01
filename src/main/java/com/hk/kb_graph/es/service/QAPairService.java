@@ -8,9 +8,7 @@ import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.Request;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,10 +17,10 @@ import java.math.BigDecimal;
 @Service
 public class QAPairService {
     @Autowired
-    private RestClient client;
+    private RestClient client; //thread safe
     private final String index = "kb_graph";
     private final String type = "qaPairs";
-    @InjectFileString(fileName = "getMaxIdOfQAPairs.json")
+    @InjectFileString(fileName = "es_body/getMaxIdOfQAPairs.json")
     private String maxIdRequestBody;
     /**
      * 该service操作的是指定的index和type
@@ -52,7 +50,7 @@ public class QAPairService {
             this.maxId = (BigDecimal) ((JSONObject) o).get("value");
         }
         //当前ID + 1
-        this.maxId  = this.maxId.add(new BigDecimal(1));
+        this.maxId = this.maxId.add(new BigDecimal(1));
         return this.maxId;
     }
 
@@ -70,6 +68,9 @@ public class QAPairService {
     }
 
 
+    /**
+     * 添加文档
+     */
     public boolean addQAPair(QAPair qaPair) throws IOException {
         String method = "POST";
         String endpoint = String.format("/%s/%s/%s", index, type, qaPair.getId());
@@ -80,13 +81,5 @@ public class QAPairService {
         String rs = EntityUtils.toString(request.getEntity());
         System.out.println(rs);
         return true;
-    }
-
-    public String toString() {
-        return "QAPairServiceImpl{" +
-                "client=" + client +
-                ", maxIdRequestBody=" + maxIdRequestBody +
-                ", maxId=" + maxId +
-                '}';
     }
 }
