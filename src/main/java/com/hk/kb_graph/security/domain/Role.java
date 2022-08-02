@@ -1,4 +1,4 @@
-package com.hk.kb_graph.security.login_authentication.domain;
+package com.hk.kb_graph.security.domain;
 
 import lombok.Data;
 

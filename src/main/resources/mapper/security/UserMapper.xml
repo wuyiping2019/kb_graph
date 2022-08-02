@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hk.kb_graph.security.login_authentication.mapper.UserMapper">
-    <select id="getUser" resultType="com.hk.kb_graph.security.login_authentication.domain.User">
+<mapper namespace="com.hk.kb_graph.security.mapper.UserMapper">
+    <select id="getUser" resultType="com.hk.kb_graph.security.domain.User">
         select id,
                username,
                password,
@@ -14,11 +14,18 @@
         from user
         where username = #{userName}
     </select>
-    <select id="getRoles" parameterType="long" resultType="com.hk.kb_graph.security.login_authentication.domain.Role">
+    <select id="getRoles" parameterType="long" resultType="com.hk.kb_graph.security.domain.Role">
         select a.id,
                a.name,
                a.nameZh
-        from role a,user_role b
-        where a.id = b.rid and b.uid = #{id}
+        from role a,
+             user_role b
+        where a.id = b.rid
+          and b.uid = #{id}
     </select>
+    <update id="updatePassword">
+        update user
+        set password = #{newPassword}
+        where username = #{username}
+    </update>
 </mapper>

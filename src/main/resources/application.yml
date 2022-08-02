@@ -41,6 +41,19 @@ spring:
       username.parameter: username
       password.parameter: password
       validation.parameter: kaptcha
+      password.encoder: noop
+      # 自定义登录成功和失败的处理逻辑
+      # 1.redirect参数：表示是否支持自动跳转（服务器跳转，而非浏览器重定向，前后端分离情况下只能设置为false）
+      handler:
+        # 1.登录成功
+        success:
+          redirect: false # 是否跳转
+          url: "/success"
+        # 2.登录失败
+        failure:
+          redirect: false
+          url: "/failure"
+
 
   profiles:
     active: dev

@@ -1,61 +1,56 @@
-package com.hk.kb_graph.security.login_authentication.filter;
+package com.hk.kb_graph.security.filter;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.hk.kb_graph.domain.RespDo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.hk.kb_graph.security.handler.DefineUsernamePasswordAuthenticationFailureHandler;
+import com.hk.kb_graph.security.handler.DefineUsernamePasswordAuthenticationSuccessHandler;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.session.DisableEncodeUrlFilter;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 
-public class UsernamePasswordAuthenticationFilterExtend extends UsernamePasswordAuthenticationFilter {
-    private final String usernameParameter;
-    private final String kaptchaParameter;
-    private final String passwordParameter;
 
-    public UsernamePasswordAuthenticationFilterExtend(String usernameParameter, String passwordParameter, String kaptchaParameter) {
+public class UsernamePasswordAuthenticationExtendFilter extends UsernamePasswordAuthenticationFilter {
+    private String usernameParameter;
+    private String passwordParameter;
+    private String kaptchaParameter;
+
+
+    public UsernamePasswordAuthenticationExtendFilter(String usernameParameter,
+                                                      String passwordParameter,
+                                                      String kaptchaParameter,
+                                                      AuthenticationSuccessHandler successHandler,
+                                                      AuthenticationFailureHandler failureHandler,
+                                                      AuthenticationManager manager) {
         this.usernameParameter = usernameParameter;
-        this.kaptchaParameter = kaptchaParameter;
         this.passwordParameter = passwordParameter;
+        this.kaptchaParameter = kaptchaParameter;
+        super.setAuthenticationSuccessHandler(successHandler);
+        super.setAuthenticationFailureHandler(failureHandler);
+        super.setAuthenticationManager(manager);
     }
 
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        RespDo success = RespDo.newInstance().success("200", "success", authResult);
-        response.setHeader("Content-Type", "application/json;charsetEncoding=UTF-8");
-        PrintWriter writer = response.getWriter();
-        writer.print(JSONObject.toJSONString(success));
-        writer.flush();
-        writer.close();
-    }
-
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        RespDo success = RespDo.newInstance().fail("200", "failure");
-        response.setHeader("Content-Type", "application/json");
-        PrintWriter writer = response.getWriter();
-        writer.print(JSONObject.toJSONString(success));
-        writer.flush();
-        writer.close();
-    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -64,7 +59,6 @@ public class UsernamePasswordAuthenticationFilterExtend extends UsernamePassword
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
         //查看request的content-type 如果是application/json 则自定义获取username和password的方式
-
         String contentType = request.getContentType();
         if (contentType == null) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());

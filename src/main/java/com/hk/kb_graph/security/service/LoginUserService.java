@@ -1,8 +1,8 @@
-package com.hk.kb_graph.security.login_authentication.service;
+package com.hk.kb_graph.security.service;
 
-import com.hk.kb_graph.security.login_authentication.domain.Role;
-import com.hk.kb_graph.security.login_authentication.domain.User;
-import com.hk.kb_graph.security.login_authentication.mapper.UserMapper;
+import com.hk.kb_graph.security.domain.User;
+import com.hk.kb_graph.security.domain.Role;
+import com.hk.kb_graph.security.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
